@@ -2,22 +2,22 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="my-app">
     <global-element name="Web Service Consumer" type="http://www.mulesoft.org/schema/mule/ws/consumer-config" entity-id="Web Service Consumer#1">
         <properties>
-            <property name=""/>
-            <property name="port" value="GeoIPServiceSoap12"/>
             <property name="wsdlLocation" value="http://www.webservicex.net/geoipservice.asmx?wsdl"/>
-            <property name="auxiliary;metauseMetaData" value="true"/>
+            <property name="port" value="GeoIPServiceSoap12"/>
+            <property name=""/>
             <property name="name" value="Web_Service_Consumer"/>
+            <property name="auxiliary;metauseMetaData" value="true"/>
             <property name="service" value="GeoIPService"/>
             <property name="auxiliary;index" value="1"/>
-            <property name="connector-ref"/>
             <property name="serviceAddress" value="http://www.webservicex.net/geoipservice.asmx"/>
+            <property name="connector-ref"/>
         </properties>
     </global-element>
     <global-element name="Xml_GetGeoIPResponse__To_JSON" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#1">
         <properties>
             <property name="name" value="Xml_GetGeoIPResponse__To_JSON"/>
-            <property name="auxiliary;index" value="2"/>
             <property name="transformationGraphPath" value="xml_getgeoipresponse__to_json.grf"/>
+            <property name="auxiliary;index" value="2"/>
         </properties>
     </global-element>
     <flow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="container" SubFlow="false" type="http://www.mulesoft.org/schema/mule/batch/job" entity-id="Batch#1">
@@ -32,7 +32,7 @@
                 <property name="auxiliary;index" value="4"/>
             </property-collection>
         </properties>
-        <lane xsi:type="nestedContainer" name="Input" type="http://www.mulesoft.org/schema/mule/batch/input" hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="08047f9e-e12f-432f-a2ae-4df71bb21eeb">
+        <lane xsi:type="nestedContainer" name="Input" type="http://www.mulesoft.org/schema/mule/batch/input" hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="63ed6d4d-ddf8-43f3-9e52-6a5bd2da6b2d">
             <pattern name="Salesforce" type="http://www.mulesoft.org/schema/mule/sfdc/sfdc-connector" entity-id="Salesforce#1">
                 <properties>
                     <property name="fetchSize"/>
@@ -49,15 +49,15 @@
                     <property name="serviceEndpoint"/>
                     <property name="accessTokenId"/>
                     <property name="config-ref" value="Salesforce"/>
-                    <property name="auxiliary;index" value="6"/>
                     <property name="proxyPassword"/>
+                    <property name="auxiliary;index" value="6"/>
                 </properties>
             </pattern>
             <properties>
                 <property name="auxiliary;index" value="5"/>
             </properties>
         </lane>
-        <lane xsi:type="nestedContainer" name="Process Records" type="http://www.mulesoft.org/schema/mule/batch/process-records" hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="638b757b-68ae-4891-8cd3-c00e9e8fef8d">
+        <lane xsi:type="nestedContainer" name="Process Records" type="http://www.mulesoft.org/schema/mule/batch/process-records" hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="91469b4f-67e7-4d74-9706-e39e3c968209">
             <scope type="http://www.mulesoft.org/schema/mule/batch/step" entity-id="Batch Step#1">
                 <properties>
                     <property name="filter-expression"/>
@@ -69,7 +69,7 @@
                 <compartment entity-id="compartment#1">
                     <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
                         <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
-                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <graphicalData x="138" y="164" width="68" height="71"/>
                             <properties>
 <property name="message"/>
 <property name="category"/>
@@ -77,36 +77,37 @@
 <property name="auxiliary;index" value="9"/>
                             </properties>
                         </pattern>
-                        <pattern name="Database" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#1">
-                            <graphicalData x="0" y="0" width="0" height="0"/>
+                        <scope name="Batch Commit" type="http://www.mulesoft.org/schema/mule/batch/commit" entity-id="Batch Commit#1">
+                            <graphicalData x="394" y="140" width="115" height="118"/>
                             <properties>
-<property name=""/>
-<property name="source"/>
-<property name="autoGeneratedKeysColumnNames"/>
-<property name="transactionalAction"/>
-<property name="target"/>
-<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/insert"/>
-<property name="autoGeneratedKeysColumnIndexes"/>
-<property name="config-ref" value="MySQL_Configuration"/>
-<property name="auxiliary;index" value="10"/>
-<property name="autoGeneratedKeys"/>
-<property name="bulkMode"/>
-<property-collection name="@http://www.mulesoft.org/schema/mule/db/parameterized-query;0">
-    <property name="text" value="INSERT into Users (Name, LastName, Email) Values (#[payload.Name], #[payload.LastName], #[payload.Email])"/>
-    <property name="auxiliary;index" value="11"/>
-    <property name="auxiliary;wrapIn" value="11"/>
-</property-collection>
+<property name="streaming"/>
+<property name="auxiliary;index" value="11"/>
+<property name="size" value="10"/>
                             </properties>
-                        </pattern>
-                        <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
-                            <graphicalData x="0" y="0" width="0" height="0"/>
-                            <properties>
-<property name="message"/>
-<property name="category"/>
-<property name="level" value="INFO"/>
-<property name="auxiliary;index" value="12"/>
-                            </properties>
-                        </pattern>
+                            <compartment entity-id="compartment#2">
+<lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
+    <pattern name="Database" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#1">
+        <graphicalData x="0" y="0" width="0" height="0"/>
+        <properties>
+            <property name="source" value=""/>
+            <property name="updated"/>
+            <property name="transactionalAction" value="JOIN_IF_POSSIBLE"/>
+            <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/insert"/>
+            <property name="target" value=""/>
+            <property name="config-ref" value="MySQL_Configuration"/>
+            <property name="auxiliary;index" value="12"/>
+            <property name="autoGeneratedKeys" value="false"/>
+            <property name="auxiliary;metametadataStrategy" value="new-database-metadata-strategy"/>
+            <property name="bulkMode" value="true"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/db/parameterized-query;0">
+                <property name="text" value="INSERT into Users (Name, LastName, Email) Values (#[payload.Name], #[payload.LastName], #[payload.Email])"/>
+            </property-collection>
+        </properties>
+        <description></description>
+    </pattern>
+</lane>
+                            </compartment>
+                        </scope>
                     </lane>
                 </compartment>
             </scope>
@@ -114,23 +115,23 @@
                 <property name="auxiliary;index" value="7"/>
             </properties>
         </lane>
-        <lane xsi:type="nestedContainer" name="On Complete" type="http://www.mulesoft.org/schema/mule/batch/on-complete" hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="d051214d-1676-44ec-9508-cebacf97e42a">
+        <lane xsi:type="nestedContainer" name="On Complete" type="http://www.mulesoft.org/schema/mule/batch/on-complete" hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="084f61ac-759f-4b99-8aaf-1c28f6b1f248">
             <pattern name="Database" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#2">
                 <properties>
-                    <property name="streaming"/>
                     <property name=""/>
+                    <property name="streaming"/>
                     <property name="fetchSize"/>
                     <property name="source"/>
                     <property name="transactionalAction"/>
-                    <property name="target"/>
-                    <property name="maxRows"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/select"/>
+                    <property name="maxRows"/>
+                    <property name="target"/>
                     <property name="config-ref" value="MySQL_Configuration"/>
-                    <property name="auxiliary;index" value="14"/>
+                    <property name="auxiliary;index" value="15"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/db/parameterized-query;0">
                         <property name="text" value="SELECT * FROM Users WHERE Name = 'Kit Wong'"/>
-                        <property name="auxiliary;index" value="15"/>
-                        <property name="auxiliary;wrapIn" value="15"/>
+                        <property name="auxiliary;wrapIn" value="16"/>
+                        <property name="auxiliary;index" value="16"/>
                     </property-collection>
                 </properties>
             </pattern>
@@ -139,25 +140,25 @@
                     <property name="message"/>
                     <property name="category"/>
                     <property name="level" value="INFO"/>
-                    <property name="auxiliary;index" value="16"/>
+                    <property name="auxiliary;index" value="17"/>
                 </properties>
             </pattern>
             <properties>
-                <property name="auxiliary;index" value="13"/>
+                <property name="auxiliary;index" value="14"/>
             </properties>
         </lane>
         <containerBehavior>default</containerBehavior>
     </flow>
-    <flow SubFlow="false" name="my-appFlow1" type="http://www.mulesoft.org/schema/mule/core/flow" entity-id="d570bdae-0207-4dae-9139-f4cac08d3ba4">
+    <flow SubFlow="false" name="my-appFlow1" type="http://www.mulesoft.org/schema/mule/core/flow" entity-id="29966a45-4565-4025-8184-0e2f5aa2aa67">
         <properties>
             <property name="initialState"/>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
-            <property name="auxiliary;index" value="17"/>
+            <property name="auxiliary;index" value="18"/>
         </properties>
-        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#3">
             <graphicalData x="0" y="0" width="0" height="0"/>
             <endpoint direction="Inbound" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
@@ -174,17 +175,17 @@
                     <property name="exchange-pattern" value="request-response"/>
                     <property name="tracking:enable-default-events"/>
                     <property name="ref"/>
-                    <property name="transformer-refs"/>
                     <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
                     <property name="address"/>
-                    <property name="path"/>
                     <property name="encoding"/>
+                    <property name="path"/>
                     <property name="responseTransformer-refs"/>
                     <property name="method"/>
                     <property name="user"/>
-                    <property name="auxiliary;index" value="18"/>
-                    <property name="responseTimeout"/>
                     <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="auxiliary;index" value="19"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
@@ -195,20 +196,20 @@
                     <property name="operation" value="GetGeoIPContext"/>
                     <property name="mtomEnabled"/>
                     <property name="config-ref" value="Web_Service_Consumer"/>
-                    <property name="auxiliary;index" value="19"/>
+                    <property name="auxiliary;index" value="20"/>
                 </properties>
             </pattern>
             <pattern name="Xml&lt;GetGeoIPResponse&gt; To JSON" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#2">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="returnClass"/>
-                    <property name="stream"/>
                     <property name="input-ref"/>
-                    <property name="target"/>
+                    <property name="stream"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
-                    <property name="pipeSize"/>
+                    <property name="target"/>
                     <property name="config-ref" value="Xml_GetGeoIPResponse__To_JSON"/>
-                    <property name="auxiliary;index" value="20"/>
+                    <property name="pipeSize"/>
+                    <property name="auxiliary;index" value="21"/>
                 </properties>
             </pattern>
             <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#4">
@@ -217,7 +218,7 @@
                     <property name="message" value="#[payload]"/>
                     <property name="category"/>
                     <property name="level" value="INFO"/>
-                    <property name="auxiliary;index" value="21"/>
+                    <property name="auxiliary;index" value="22"/>
                 </properties>
             </pattern>
         </lane>
